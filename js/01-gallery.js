@@ -14,7 +14,11 @@ galleryItems.forEach((image) => {
   galleryEl.append(li);
 });
 
+let lightbox;
+
 galleryEl.addEventListener("click", openImageInLigthox);
+
+document.addEventListener("keydown", handleKeyDown);
 
 function openImageInLigthox(e) {
   const clickedOn = e.target;
@@ -24,10 +28,14 @@ function openImageInLigthox(e) {
   }
   e.preventDefault();
 
-  basicLightbox
-    .create(
-      `<img src="${clickedOn.dataset.source}" width="1400" heigth= "900"/>`
-    )
-    .show();
+  lightbox = basicLightbox.create(
+    `<img src="${clickedOn.dataset.source}" width="1400" height="900"/>`
+  );
+  lightbox.show();
 }
 
+function handleKeyDown(event) {
+  if (event.key === "Escape") {
+    lightbox.close();
+  }
+}
